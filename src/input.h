@@ -8,9 +8,17 @@
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
+#include <stdbool.h>
 
 extern char *userInput;
 
-char *getUserInput(void);
+typedef struct input {
+    char** argv;
+    char* command;
+} Input;
+
+
+void *getUserInput(Input **input);
+void freeInput(Input **input);
 
 #endif
