@@ -4,8 +4,8 @@
 #include <stdbool.h>
 #include "input.h"
 #include "exec.h"
+#include "prompt.h"
 
-char* promptPrefix = "# ";
 static Input* input = NULL;
 
 void initialise();
@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
 
     // Main loop
     while (true) {
-        printf("%s ", promptPrefix);
+        printPrompt();
         getUserInput(&input);
         execute(input);
     }

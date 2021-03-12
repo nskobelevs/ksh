@@ -103,7 +103,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_ksh_OBJECTS = src/main.$(OBJEXT) src/input.$(OBJEXT) \
-	src/exec.$(OBJEXT)
+	src/exec.$(OBJEXT) src/prompt.$(OBJEXT)
 ksh_OBJECTS = $(am_ksh_OBJECTS)
 ksh_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -261,7 +261,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-ksh_SOURCES = src/main.c src/input.c src/exec.c
+ksh_SOURCES = src/main.c src/input.c src/exec.c src/prompt.c
 all: all-am
 
 .SUFFIXES:
@@ -347,6 +347,7 @@ src/$(am__dirstamp):
 src/main.$(OBJEXT): src/$(am__dirstamp)
 src/input.$(OBJEXT): src/$(am__dirstamp)
 src/exec.$(OBJEXT): src/$(am__dirstamp)
+src/prompt.$(OBJEXT): src/$(am__dirstamp)
 
 ksh$(EXEEXT): $(ksh_OBJECTS) $(ksh_DEPENDENCIES) $(EXTRA_ksh_DEPENDENCIES) 
 	@rm -f ksh$(EXEEXT)
