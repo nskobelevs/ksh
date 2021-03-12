@@ -14,6 +14,8 @@ void execute(const Input *const input) {
     if (strcmp(input->command, "cd") == 0) {
         cd(input);
         return;
+    } else if (strcmp(input->command, "exit")) {
+        exit(EXIT_SUCCESS);
     }
 
     int pid = fork();
