@@ -1,0 +1,14 @@
+valgrind.log
+build.log
+
+src/**/.dirstamp
+
+Makefile
+aclocal.m4
+autom4te.cache/
+config.log
+config.status
+ksh
+missing
+src/**/*.o
+configure
