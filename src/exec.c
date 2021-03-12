@@ -53,7 +53,7 @@ void execute(const Input *const input) {
  * two or more -> "too many arguments" error
  */
 static void cd(const Input *const input) {
-    
+
     char *home = getenv("HOME");
 
     char *dir = input->argv[1];
@@ -69,7 +69,18 @@ static void cd(const Input *const input) {
         }
     }
 
-    int chdirStatus = chdir(input->argv[1]);
+    char *newDir = NULL;
+    if (strncmp(dir, "~/", 2) == 0 && home != NULL) {
+        // Length of home + len of original dir - 1 (tilde char) + 1 (terminting null char)
+        newDir = (char *)malloc((strlen(home) + strlen(dir)) * sizeof(char));
+        strcpy(newDir, home);
+        strcat(newDir, dir + 1);
+        dir = newDir;
+    }
+
+    int chdirStatus = chdir(dir);
+
+    if (newDir != NULL) free(newDir);
 
     if (chdirStatus == -1) {
         fprintf(stderr, "ksh: cd: %s (os error %d)\n", strerror(errno), errno);
