@@ -53,16 +53,19 @@ void execute(const Input *const input) {
  * two or more -> "too many arguments" error
  */
 static void cd(const Input *const input) {
+    
+    char *home = getenv("HOME");
+
+    char *dir = input->argv[1];
 
     if (input->argv[2] != NULL) {
         fprintf(stderr, "ksh: cd: too many arguments\n");
-    } else if (input->argv[1] == NULL) { // no arguments
-        char *home = getenv("HOME");
-        if (home == NULL) {
+    } else if (dir == NULL) {
+        if (home == NULL) { // no arguments and home is not defined
             fprintf(stderr, "ksh: cd: \"HOME\" environment variable not set\n");
             return;
         } else {
-            input->argv[1] = home;
+            dir = home;
         }
     }
 
