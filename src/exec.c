@@ -14,7 +14,7 @@ void execute(const Input *const input) {
     if (strcmp(input->command, "cd") == 0) {
         cd(input);
         return;
-    } else if (strcmp(input->command, "exit")) {
+    } else if (strcmp(input->command, "exit") == 0) {
         exit(EXIT_SUCCESS);
     }
 
