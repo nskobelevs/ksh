@@ -18,6 +18,13 @@ void execute(const Input *const input) {
         exit(EXIT_SUCCESS);
     }
 
+    // If the last arg is a "&" string, dont wait for the process to finish
+    bool waitForChild = true;
+    if (input->size > 1 && strcmp(input->argv[input->size - 1], "&") == 0) {
+        waitForChild = false;
+        input->argv[input->size - 1] = NULL;
+    }
+
     int pid = fork();
 
     if (pid < 0) { // fork() failed
@@ -29,8 +36,14 @@ void execute(const Input *const input) {
             fprintf(stderr, "ksh: failed running system(): %s (os error %d)\n", strerror(errno), errno);
         }
     } else if (pid > 0) { // main process
-        int status;
-        waitpid(pid, &status, 0); // wait for that specific child to finish
+        if (waitForChild) {
+            int status;
+            waitpid(pid, &status, 0); // wait for that specific child to finish
+        } else {
+            // Even if not waiting for child, sleep a bit not to print to the console too fast
+            struct timespec sleepTime = {.tv_sec = 0, .tv_nsec = 25000000};
+            nanosleep(&sleepTime, NULL);
+        }
     } else { // child process
         int execStatus = execvp(input->command, input->argv); // run command
 
