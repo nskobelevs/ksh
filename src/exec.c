@@ -96,6 +96,16 @@ static void cd(const Input *const input) {
     if (newDir != NULL) free(newDir);
 
     if (chdirStatus == -1) {
-        fprintf(stderr, "ksh: cd: %s (os error %d)\n", strerror(errno), errno);
+        switch (errno) {
+            case ENOENT:
+                fprintf(stderr, "cd: no such file or directory: %s\n", dir);
+                break;
+            case EACCES:
+                fprintf(stderr, "cd: permission denied: %s\n", dir);
+                break;
+            default:
+                fprintf(stderr, "cd: %s (os error %d)\n", stderror(errno), errno);
+                break;
+        }
     }
 }
