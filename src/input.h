@@ -15,6 +15,7 @@ extern char *userInput;
 typedef struct input {
     char** argv;
     char* command;
+    size_t size;
 } Input;
 
 

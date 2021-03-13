@@ -2,14 +2,14 @@
 
 char* userInput;
 
-static char** split(char * rawInput);
+static char** split(char * rawInput, size_t *len);
 static Input *createInput();
 
 /*
  * Splits a given string into an array of strings using a space as the delim 
  * returned pointer must be freed
  */
-static char** split(char * rawInput) {
+static char** split(char * rawInput, size_t *len) {
     char ** argv = (char **)malloc(sizeof(*argv));
 
     char *token = strtok(rawInput, " ");
@@ -31,6 +31,7 @@ static char** split(char * rawInput) {
         argv[count - 1] = token;
     }
 
+    *len = count;
     return argv;
 }
 
@@ -47,6 +48,7 @@ static Input *createInput() {
     }
     input->argv = NULL;
     input->command = NULL;
+    input->size = 0;
     return input;
 }
 
@@ -99,8 +101,10 @@ void *getUserInput(Input **input) {
     // empty input
     if (strlen(userInput) == 0) return;
 
-    char** argv = split(userInput);
+    size_t argvCount;
+    char** argv = split(userInput, &argvCount);
 
     (*input)->argv = argv;
     (*input)->command = argv[0];
+    (*input)->size = argvCount;
 }
