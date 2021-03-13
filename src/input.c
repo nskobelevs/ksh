@@ -106,5 +106,5 @@ void *getUserInput(Input **input) {
 
     (*input)->argv = argv;
     (*input)->command = argv[0];
-    (*input)->size = argvCount;
+    (*input)->size = argvCount - 1;
 }
