@@ -1,8 +1,6 @@
 #define _GNU_SOURCE
 #define _POSIX_C_SOURCE 200809L
 
-#include <signal.h>
-#include <stdbool.h>
 #include "input.h"
 #include "exec.h"
 #include "prompt.h"
@@ -15,8 +13,11 @@ void terminate();
 void handleSignal(int sig) {
 }
 
-int main(int argc, char** argv) {
+int main() {
     initialise();
+
+    char* test = malloc(100);
+    test[0] = 10;
 
     // Main loop
     while (true) {

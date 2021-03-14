@@ -68,7 +68,7 @@ void freeInput(Input **input) {
  * If line couldn't be read. Input fields argv and command will be NULL
  * terminates the program on EOF input
  */
-void *getUserInput(Input **input) {
+void getUserInput(Input **input) {
 
     if (input == NULL) {
         perror("ksh: internal error: getUserInput() received NULL as input (os error baddev)\n");

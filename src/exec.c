@@ -14,7 +14,7 @@ void execute(Input *const input) {
     // Looping from the end of the array until we find a ">"
     for (int index = input->size - 1; index >= 0; index--) {
         if (strcmp(input->argv[index], ">") == 0) {
-            if (input->size == index + 1) {
+            if (input->size == (size_t)(index + 1)) {
                 fprintf(stderr, "ksh: no redirect file specified\n");
                 return;
             }
@@ -22,7 +22,7 @@ void execute(Input *const input) {
             int redirectFile = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 
             if (redirectFile == -1) {
-                fprintf(stderr, "ksh: error creating redirect file: %s (os error %d)\n", strerror(errno), strerror);
+                fprintf(stderr, "ksh: error creating redirect file: %s (os error %d)\n", strerror(errno), errno);
                 return;
             } else {
                 // Replaceing the argv from ">" to NULL to mark the end

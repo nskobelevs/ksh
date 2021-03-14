@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
-#include <stdbool.h>
 
 extern char *userInput;
 
@@ -16,7 +15,7 @@ typedef struct input {
 } Input;
 
 
-void *getUserInput(Input **input);
+void getUserInput(Input **input);
 void freeInput(Input **input);
 
 #endif
