@@ -9,6 +9,4 @@ autom4te.cache/
 config.log
 config.status
 ksh
-missing
 src/**/*.o
-configure
