@@ -71,8 +71,9 @@ static void cd(const Input *const input) {
 
     char *dir = input->argv[1];
 
-    if (input->argv[2] != NULL) {
+    if (input->size > 2) {
         fprintf(stderr, "ksh: cd: too many arguments\n");
+        return;
     } else if (dir == NULL) {
         if (home == NULL) { // no arguments and home is not defined
             fprintf(stderr, "ksh: cd: \"HOME\" environment variable not set\n");
@@ -104,7 +105,7 @@ static void cd(const Input *const input) {
                 fprintf(stderr, "cd: permission denied: %s\n", dir);
                 break;
             default:
-                fprintf(stderr, "cd: %s (os error %d)\n", stderror(errno), errno);
+                fprintf(stderr, "cd: %s (os error %d)\n", strerror(errno), errno);
                 break;
         }
     }
