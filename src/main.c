@@ -49,5 +49,4 @@ void initialise() {
 void terminate() {
     if (userInput != NULL) free(userInput);
     freeInput(&input);
-    exit(EXIT_SUCCESS);
 }
