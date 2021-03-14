@@ -10,8 +10,9 @@
 #include <errno.h>
 #include <sys/wait.h>
 #include <time.h>
+#include <fcntl.h>
 #include "input.h"
 
-void execute(const Input *const input);
+void execute(Input *const input);
 
 #endif

@@ -5,11 +5,47 @@ static void cd(const Input *const input);
 /*
  * Executes the given input's command in a child process
  */
-void execute(const Input *const input) {
+void execute(Input *const input) {
 
     // return if invalid input
     // return is argv is null (no command to be ran)
     if (input == NULL || input->argv == NULL) return;
+
+    // Looping from the end of the array until we find a ">"
+    for (int index = input->size - 1; index >= 0; index--) {
+        if (strcmp(input->argv[index], ">") == 0) {
+            if (input->size == index + 1) {
+                fprintf(stderr, "ksh: no redirect file specified\n");
+                return;
+            }
+            char* filename = input->argv[index + 1];
+            int redirectFile = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+
+            if (redirectFile == -1) {
+                fprintf(stderr, "ksh: error creating redirect file: %s (os error %d)\n", strerror(errno), strerror);
+                return;
+            } else {
+                // Replaceing the argv from ">" to NULL to mark the end
+                // And setting the new size appropriately to call execute recursively
+                // This allowing chaining >
+                // echo "test" > a > b > c
+                input->argv[index] = NULL;
+                input->size = index;
+
+                int savedStdout = dup(STDOUT_FILENO);
+                dup2(redirectFile, STDOUT_FILENO);
+
+                execute(input);
+                
+                fflush(stdout);
+
+                dup2(savedStdout, STDOUT_FILENO);
+                close(redirectFile);
+                return;
+            }
+
+        }
+    }
 
     if (strcmp(input->command, "cd") == 0) {
         cd(input);
