@@ -1,5 +1,5 @@
 #ifndef PROMTP_H
-#define PROMPT_H
+#define PROMTP_H
 
 #include <stdio.h>
 #include <time.h>
