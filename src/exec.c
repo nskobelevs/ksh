@@ -59,6 +59,7 @@ void execute(Input *const input) {
     if (input->size > 1 && strcmp(input->argv[input->size - 1], "&") == 0) {
         waitForChild = false;
         input->argv[input->size - 1] = NULL;
+        input->size -= 1;
     }
 
     int pid = fork();
