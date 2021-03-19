@@ -11,6 +11,7 @@ void initialise();
 void terminate();
 
 void handleSignal(int sig) {
+    printPrompt();
 }
 
 int main() {
