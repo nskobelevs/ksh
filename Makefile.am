@@ -1,6 +1,6 @@
-bin_PROGRAMS = ksh
+bin_PROGRAMS = assign2_19329563
 
-ksh_SOURCES = src/main.c src/input.c src/exec.c src/prompt.c
+assign2_19329563_SOURCES = src/main.c src/input.c src/exec.c src/prompt.c src/input.h src/exec.h src/prompt.h
 
 clean-local:
 	@rm config.status configure config.log

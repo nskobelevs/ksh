@@ -1,4 +1,4 @@
-AC_INIT([ksh], [0.1.0], [nikita.skobelevs@gmail.com])
+AC_INIT([assign2_19329563], [0.1.0], [nikita.skobelevs@gmail.com])
 
 AM_INIT_AUTOMAKE([foreign no-dependencies subdir-objects])
 
