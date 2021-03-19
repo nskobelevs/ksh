@@ -65,13 +65,7 @@ void execute(Input *const input) {
     int pid = fork();
 
     if (pid < 0) { // fork() failed
-
-        // Relying on system() syscall if fork() failed
-        int systemStatus = system(userInput);
-
-        if (systemStatus == -1) {
-            fprintf(stderr, "ksh: failed running system(): %s (os error %d)\n", strerror(errno), errno);
-        }
+        fprintf(stderr, "ksh: failed running system(): %s (os error %d)\n", strerror(errno), errno);
     } else if (pid > 0) { // main process
         if (waitForChild) {
             int status;
